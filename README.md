@@ -336,6 +336,11 @@
 |322| [What is the purpose of eslint plugin for hooks?](#what-is-the-purpose-of-eslint-plugin-for-hooks)|
 |323| [What is the difference between Imperative and Declarative in React?](#what-is-the-difference-between-imperative-and-declarative-in-react)|
 |324| [What are the benefits of using typescript with reactjs?](#what-are-the-benefits-of-using-typescript-with-reactjs)|
+|325| [How do you make sure that user remains authenticated on page refresh while using Context API State Management?](#how-do-you-make-sure-that-user-remains-authenticated-on-page-refresh-while-using-context-api-state-management)|
+|326| [What are the benefits of new JSX transform?](#what-are-the-benefits-of-new-jsx-transform)|
+|327| [How does new JSX transform different from old transform?](#how-does-new-jsx-transform-different-from-old-transform)|
+|328| [How do you get redux scaffolding using create-react-app?](#how-do-you-get-redux-scaffolding-using-create-react-app)|
+|329| [What are React Server components?](#what-are-react-server-components)
 
 ## Core React
 
@@ -6311,3 +6316,152 @@
      2. Use of interfaces for complex type definitions
      3. IDEs such as VS Code was made for TypeScript
      4. Avoid bugs with the ease of readability and Validation
+
+**[⬆ Back to Top](#table-of-contents)**
+
+325. ### How do you make sure that user remains authenticated on page refresh while using Context API State Management?
+When a user logs in and reload, to persist the state generally we add the load user action in the useEffect hooks in the main App.js. While using Redux, loadUser action can be easily accessed.
+
+**App.js**
+
+```js
+import {loadUser}  from '../actions/auth';
+store.dispatch(loadUser());
+```
+
+* But while using **Context API**, to access context in App.js, wrap the AuthState in index.js so that App.js can access the auth context. Now whenever the page reloads, no matter what route you are on, the user will be authenticated as **loadUser** action will be triggered on each re-render.
+
+**index.js**
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import AuthState from './context/auth/AuthState'
+
+ReactDOM.render(
+  <React.StrictMode>
+    <AuthState>
+      <App />
+    </AuthState>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+**App.js**
+
+```js
+  const authContext = useContext(AuthContext);
+
+  const { loadUser } = authContext;
+
+  useEffect(() => {
+    loadUser();
+  },[])
+```
+
+**loadUser**
+
+```js
+    const loadUser = async () => {
+        const token = sessionStorage.getItem('token');
+
+        if(!token){
+            dispatch({
+                type: ERROR
+            })
+        }
+        setAuthToken(token);
+
+        try {
+            const res = await axios('/api/auth'); 
+
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data.data
+            })
+            
+        } catch (err) {
+           console.error(err); 
+        }
+    }
+```
+
+  **[⬆ Back to Top](#table-of-contents)**
+
+326. ### What are the benefits of new JSX transform?
+     There are three major benefits of new JSX transform,
+
+     1. It is possible to use JSX without importing React packages
+     2. The compiled output might improve the bundle size in a small amount
+     3. The future improvements provides the flexibility to reduce the number of concepts to learn React.
+
+327. ### How does new JSX transform different from old transform?
+     The new JSX transform doesn’t require React to be in scope. i.e, You don't need to import React package for simple scenarios.
+
+     Let's take an example to look at the main differences between the old and the new transform,
+
+     **Old Transform:**
+
+     ```js
+     import React from 'react';
+
+     function App() {
+       return <h1>Good morning!!</h1>;
+     }
+     ```
+
+     Now JSX transform convert the above code into regular JavaScript as below,
+
+     ```js
+     import React from 'react';
+
+     function App() {
+       return React.createElement('h1', null, 'Good morning!!');
+     }
+     ```
+
+     **New Transform:**
+
+     The new JSX transform doesn't require any React imports
+
+     ```js
+     function App() {
+       return <h1>Good morning!!</h1>;
+     }
+     ```
+
+     Under the hood JSX transform compiles to below code
+
+     ```js
+     import {jsx as _jsx} from 'react/jsx-runtime';
+
+     function App() {
+       return _jsx('h1', { children: 'Good morning!!' });
+     }
+     ```
+
+     **Note:** You still need to import React to use Hooks.
+     
+328. ### How do you get redux scaffolding using create-react-app?
+     Redux team has provided official redux+js or redux+typescript templates for create-react-app project. The generated project setup includes,
+     
+     1. Redux Toolkit and React-Redux dependencies
+     2. Create and configure Redux store
+     3. React-Redux `<Provider>` passing the store to React components
+     4. Small "counter" example to demo how to add redux logic and React-Redux hooks API to interact with the store from components
+     
+     The below commands need to be executed along with template option as below,
+     
+     1. **Javascript template:**
+     ```js
+     npx create-react-app my-app --template redux
+     ```
+     2. **Typescript template:**
+     ```js
+     npx create-react-app my-app --template redux-typescript
+     ````
+329. ### What are React Server components?
+     React Server Component is a way to write React component that gets rendered in the server-side with the purpose of improving React app performance. These components allow us to load components from the backend. 
+    
+     **Note:** React Server Components is still under development and not recommended for production yet.
