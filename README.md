@@ -6317,7 +6317,7 @@
      3. IDEs such as VS Code was made for TypeScript
      4. Avoid bugs with the ease of readability and Validation
 
-**[⬆ Back to Top](#table-of-contents)**
+   **[⬆ Back to Top](#table-of-contents)**
 
 325. ### How do you make sure that user remains authenticated on page refresh while using Context API State Management?
 When a user logs in and reload, to persist the state generally we add the load user action in the useEffect hooks in the main App.js. While using Redux, loadUser action can be easily accessed.
@@ -6387,7 +6387,7 @@ ReactDOM.render(
     }
 ```
 
-  **[⬆ Back to Top](#table-of-contents)**
+   **[⬆ Back to Top](#table-of-contents)**
 
 326. ### What are the benefits of new JSX transform?
      There are three major benefits of new JSX transform,
@@ -6395,6 +6395,8 @@ ReactDOM.render(
      1. It is possible to use JSX without importing React packages
      2. The compiled output might improve the bundle size in a small amount
      3. The future improvements provides the flexibility to reduce the number of concepts to learn React.
+
+   **[⬆ Back to Top](#table-of-contents)**
 
 327. ### How does new JSX transform different from old transform?
      The new JSX transform doesn’t require React to be in scope. i.e, You don't need to import React package for simple scenarios.
@@ -6442,6 +6444,8 @@ ReactDOM.render(
      ```
 
      **Note:** You still need to import React to use Hooks.
+
+   **[⬆ Back to Top](#table-of-contents)**
      
 328. ### How do you get redux scaffolding using create-react-app?
      Redux team has provided official redux+js or redux+typescript templates for create-react-app project. The generated project setup includes,
@@ -6461,7 +6465,12 @@ ReactDOM.render(
      ```js
      npx create-react-app my-app --template redux-typescript
      ````
+
+   **[⬆ Back to Top](#table-of-contents)**
+
 329. ### What are React Server components?
      React Server Component is a way to write React component that gets rendered in the server-side with the purpose of improving React app performance. These components allow us to load components from the backend. 
     
      **Note:** React Server Components is still under development and not recommended for production yet.
+
+   **[⬆ Back to Top](#table-of-contents)**
