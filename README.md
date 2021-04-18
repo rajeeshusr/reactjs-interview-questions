@@ -341,6 +341,7 @@
 |327| [How does new JSX transform different from old transform?](#how-does-new-jsx-transform-different-from-old-transform)|
 |328| [How do you get redux scaffolding using create-react-app?](#how-do-you-get-redux-scaffolding-using-create-react-app)|
 |329| [What are React Server components?](#what-are-react-server-components)
+|330| [What is prop drilling?](#what-is-prop-drilling)
 
 ## Core React
 
@@ -5731,7 +5732,9 @@
     
 282. ### What is the purpose of forward ref in HOCs?
      Refs will not get passed through because ref is not a prop. It handled differently by React just like **key**. If you add a ref to a HOC, the ref will refer to the outermost container component, not the wrapped component. In this case, you can use Forward Ref API. For example, we can explicitly forward refs to the inner FancyButton component using the React.forwardRef API.
+     
      The below HOC logs all props,
+     
      ```javascript
      function logProps(Component) {
        class LogProps extends React.Component {
@@ -5753,7 +5756,9 @@
        });
      }
      ```
+     
      Let's use this HOC to log all props that get passed to our “fancy button” component,
+     
      ```javascript
      class FancyButton extends React.Component {
        focus() {
@@ -5764,7 +5769,9 @@
      }
      export default logProps(FancyButton);
      ```
+     
      Now lets create a ref and pass it to FancyButton component. In this case, you can set focus to button element.
+     
      ```javascript
      import FancyButton from './FancyButton';
 
@@ -6474,3 +6481,13 @@ ReactDOM.render(
      **Note:** React Server Components is still under development and not recommended for production yet.
 
    **[⬆ Back to Top](#table-of-contents)**
+   
+330. ### What is prop drilling?
+     Prop Drilling is the process by which you pass data from one component of the React Component tree to another by going through other components that do not need the data but only help in passing it around.
+    
+   **[⬆ Back to Top](#table-of-contents)**   
+   
+331. ### ?
+     
+    
+   **[⬆ Back to Top](#table-of-contents)**      
