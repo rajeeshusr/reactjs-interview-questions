@@ -2047,7 +2047,7 @@
               <ComponentTwo />
             </div>
           </React.StrictMode>
-          <Footer />
+          <Header />
         </div>
       )
     }
